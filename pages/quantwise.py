@@ -16,8 +16,8 @@ from xgboost import XGBRegressor
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_percentage_error
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
-from keras.models import Sequential # type: ignore
-from keras.layers import LSTM, Dense, Dropout # type: ignore
+#from keras.models import Sequential # type: ignore
+#from keras.layers import LSTM, Dense, Dropout # type: ignore
 from ta.momentum import RSIIndicator
 from ta.trend import MACD
 import os

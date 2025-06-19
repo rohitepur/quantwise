@@ -6,7 +6,5 @@ matplotlib
 seaborn
 scikit-learn
 xgboost
-keras
 ta
 joblib
-tensorflow
