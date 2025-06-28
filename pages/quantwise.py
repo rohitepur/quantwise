@@ -405,6 +405,17 @@ if tickers:
 
         st.write("Current directory:", os.getcwd())
         st.write("Files in saved_models:", os.listdir("saved_models"))
+        import os
+
+        test_path = os.path.join(SAVE_DIR, "test_write.txt")
+
+        try:
+            with open(test_path, "w") as f:
+                f.write("Streamlit can write to this directory!")
+            st.success(f"✅ Write test succeeded: {test_path}")
+        except Exception as e:
+            st.error(f"❌ Write test failed: {e}")
+
 
         rows = []
         for stock, models in model_results.items():
