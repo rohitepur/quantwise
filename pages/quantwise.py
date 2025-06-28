@@ -75,6 +75,7 @@ def detect_event_days_single(data, ticker, return_window=20, volume_multiplier=1
 
 def prep_data(tickers):
     data = yf.download(tickers, start="2018-01-01", group_by='ticker')
+    st.write("YFinance download:", data.shape)
     all_event_days = []
     for ticker in data.columns.levels[0]:
         try:
@@ -90,9 +91,7 @@ def prep_data(tickers):
         for col in ['Open', 'High', 'Low', 'Close', 'Volume']:
             data[(ticker, col)] = pd.to_numeric(data[(ticker, col)], errors='coerce')
 
-    st.dataframe(data.tail(10))
     data = data.ffill()
-    st.dataframe(data.tail(10))
     combined_event_days['Close'] = pd.to_datetime(combined_event_days['Close'])
     event_index = pd.MultiIndex.from_frame(combined_event_days[['Close', 'Ticker']])
     event_index.names = ['Date', 'Ticker']
@@ -125,13 +124,7 @@ def train_and_save_model(data_cleaned):
 
             df[target_feature] = np.log(df['Close'].shift(-5) / df['Close'])
 
-            st.dataframe(df.tail(10))
-            st.write("df feature engineering and dropna:", df.shape)
-
             df.dropna(subset=list(feature_defs.keys()) + [target_feature], inplace=True)
-
-            st.dataframe(data_cleaned.tail(10))
-            st.write("data cleaned feature engineering and dropna:", data_cleaned.shape)
 
             # Safety check after dropna
             if df.empty or df.shape[0] < 10:
@@ -417,19 +410,6 @@ if tickers:
         data_cleaned = prep_data(tickers)
         model_results = train_and_save_model(data_cleaned)
         save_best_models_from_results(model_results)
-
-        test_path = os.path.join(SAVE_DIR, "test_write.txt")
-
-        try:
-            with open(test_path, "w") as f:
-                f.write("Streamlit can write to this directory!")
-            st.success(f"✅ Write test succeeded: {test_path}")
-        except Exception as e:
-            st.error(f"❌ Write test failed: {e}")
-
-        st.write("Current directory:", os.getcwd())
-        st.write("Files in saved_models:", os.listdir("saved_models"))
-
 
         rows = []
         for stock, models in model_results.items():
