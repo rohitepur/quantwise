@@ -78,7 +78,6 @@ def prep_data(tickers):
     data = yf.download(
     tickers="AAPL",
     start="2018-01-01",
-    end=datetime.today().strftime("%Y-%m-%d"),
     interval="1d",
     group_by="ticker",
     progress=False
