@@ -124,6 +124,12 @@ def train_and_save_model(data_cleaned):
             df[target_feature] = np.log(df['Close'].shift(-5) / df['Close'])
             df.dropna(subset=list(feature_defs.keys()) + [target_feature], inplace=True)
 
+            # Safety check after dropna
+            if df.empty or df.shape[0] < 10:
+                st.warning(f"⚠️ Skipping {ticker} — no rows left after feature engineering.")
+                continue
+
+
             corr = df[list(feature_defs.keys()) + [target_feature]].corr()[target_feature].abs()
             top_features = corr.drop(target_feature).sort_values(ascending=False).head(3).index.tolist()
             if not top_features:
