@@ -22,6 +22,7 @@ from ta.momentum import RSIIndicator
 from ta.trend import MACD
 import os
 import joblib
+from datetime import datetime
 
 SAVE_DIR = "saved_models"
 os.makedirs(SAVE_DIR, exist_ok=True)
@@ -74,7 +75,15 @@ def detect_event_days_single(data, ticker, return_window=20, volume_multiplier=1
     return df
 
 def prep_data(tickers):
-    data = yf.download(tickers, start="2018-01-01", group_by='ticker')
+    data = yf.download(
+    tickers="AAPL",
+    start="2018-01-01",
+    end=datetime.today().strftime("%Y-%m-%d"),
+    interval="1d",
+    group_by="ticker",
+    progress=False
+    )
+   # data = yf.download(tickers, start="2018-01-01", group_by='ticker')
     st.write("YFinance download:", data.shape)
     all_event_days = []
     for ticker in data.columns.levels[0]:
