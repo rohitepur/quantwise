@@ -403,6 +403,9 @@ if tickers:
         model_results = train_and_save_model(data_cleaned)
         save_best_models_from_results(model_results)
 
+        st.write("Current directory:", os.getcwd())
+        st.write("Files in saved_models:", os.listdir("saved_models"))
+
         rows = []
         for stock, models in model_results.items():
                 for model_name, metrics in models.items():
