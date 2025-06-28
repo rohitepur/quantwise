@@ -59,7 +59,7 @@ feature_defs = {
 
 target_feature = 'Future_5D_Log_Return'
 
-#@st.cache_data
+@st.cache_data
 
 def detect_event_days_single(data, ticker, return_window=20, volume_multiplier=1.5, z_threshold=2.5):
     df = data[ticker][['Close', 'Volume']].copy().dropna()
