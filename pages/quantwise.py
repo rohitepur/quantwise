@@ -90,7 +90,9 @@ def prep_data(tickers):
         for col in ['Open', 'High', 'Low', 'Close', 'Volume']:
             data[(ticker, col)] = pd.to_numeric(data[(ticker, col)], errors='coerce')
 
+    st.dataframe(data.tail(10))
     data = data.ffill()
+    st.dataframe(data.tail(10))
     combined_event_days['Close'] = pd.to_datetime(combined_event_days['Close'])
     event_index = pd.MultiIndex.from_frame(combined_event_days[['Close', 'Ticker']])
     event_index.names = ['Date', 'Ticker']
