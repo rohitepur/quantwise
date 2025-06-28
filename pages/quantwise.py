@@ -125,7 +125,7 @@ def train_and_save_model(data_cleaned):
             df.dropna(subset=list(feature_defs.keys()) + [target_feature], inplace=True)
 
             # Safety check after dropna
-            if df.empty or df.shape[0] < 10:
+            if data_cleaned.empty or data_cleaned.shape[0] < 10:
                 st.warning(f"⚠️ Skipping {ticker} — no rows left after feature engineering.")
                 continue
 
