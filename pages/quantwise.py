@@ -126,7 +126,7 @@ def train_and_save_model(data_cleaned):
             st.dataframe(df.tail(10))
             st.write("before feature engineering and dropna:", df.shape)
 
-            #df.dropna(subset=list(feature_defs.keys()) + [target_feature], inplace=True)
+            df.dropna(subset=list(feature_defs.keys()) + [target_feature], inplace=True)
 
             st.dataframe(data_cleaned.tail(10))
             st.write("after feature engineering and dropna:", df.shape)
