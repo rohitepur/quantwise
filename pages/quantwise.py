@@ -403,10 +403,6 @@ if tickers:
         model_results = train_and_save_model(data_cleaned)
         save_best_models_from_results(model_results)
 
-        st.write("Current directory:", os.getcwd())
-        st.write("Files in saved_models:", os.listdir("saved_models"))
-        import os
-
         test_path = os.path.join(SAVE_DIR, "test_write.txt")
 
         try:
@@ -415,6 +411,9 @@ if tickers:
             st.success(f"✅ Write test succeeded: {test_path}")
         except Exception as e:
             st.error(f"❌ Write test failed: {e}")
+
+        st.write("Current directory:", os.getcwd())
+        st.write("Files in saved_models:", os.listdir("saved_models"))
 
 
         rows = []
