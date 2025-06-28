@@ -124,12 +124,12 @@ def train_and_save_model(data_cleaned):
             df[target_feature] = np.log(df['Close'].shift(-5) / df['Close'])
 
             st.dataframe(df.tail(10))
-            st.write("before feature engineering and dropna:", df.shape)
+            st.write("df feature engineering and dropna:", df.shape)
 
             df.dropna(subset=list(feature_defs.keys()) + [target_feature], inplace=True)
 
             st.dataframe(data_cleaned.tail(10))
-            st.write("after feature engineering and dropna:", df.shape)
+            st.write("data cleaned feature engineering and dropna:", data_cleaned.shape)
 
             # Safety check after dropna
             if df.empty or df.shape[0] < 10:
