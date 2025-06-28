@@ -1,0 +1,1 @@
+Streamlit can write to this directory!

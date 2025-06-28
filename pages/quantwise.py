@@ -58,7 +58,7 @@ feature_defs = {
 
 target_feature = 'Future_5D_Log_Return'
 
-@st.cache_data
+#@st.cache_data
 
 def detect_event_days_single(data, ticker, return_window=20, volume_multiplier=1.5, z_threshold=2.5):
     df = data[ticker][['Close', 'Volume']].copy().dropna()
@@ -127,7 +127,7 @@ def train_and_save_model(data_cleaned):
             corr = df[list(feature_defs.keys()) + [target_feature]].corr()[target_feature].abs()
             top_features = corr.drop(target_feature).sort_values(ascending=False).head(3).index.tolist()
             if not top_features:
-                print(f"No correlated features for {ticker}, skipping.")
+                st.write(f"No correlated features for {ticker}, skipping.")
                 continue
 
             X_tabular = df[top_features].values
